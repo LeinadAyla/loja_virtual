@@ -13,7 +13,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "categoria_produto")
-@SequenceGenerator(name = "seq_categoria_produto", sequenceName = "seq_categoria_produto", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "seq_categoria_produto", sequenceName = "seq_categoria_produto", 
+allocationSize = 1, initialValue = 1)
 public class CategoriaProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
