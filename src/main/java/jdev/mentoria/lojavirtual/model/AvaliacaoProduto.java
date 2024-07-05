@@ -2,7 +2,6 @@ package jdev.mentoria.lojavirtual.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -15,29 +14,43 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "nota_item_produto")
-@SequenceGenerator(name = "seq_nota_item_produto", sequenceName = "seq_nota_item_produto",
-allocationSize = 1, initialValue = 1)
-public class NotaItemProduto implements Serializable {
+@Table(name = "avaliacao_produto")
+@SequenceGenerator(name = "seq_avaliacao_produto", sequenceName = "seq_avaliacao_produto", allocationSize = 1, initialValue = 1)
+public class AvaliacaoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_item_produto")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_avaliacao_produto")
 	private Long id;
 
-	@Column(nullable = false)
-	private Double quantidade;
+	private String descricao;
 
-	/* Associo em Foreign Key com a Tabela Produto, como as outras vezes que fiz */
-	@ManyToOne
-	@JoinColumn(name = "nota_fiscal_compra_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_compra_fk"))
-	private NotaFiscalCompra notaFiscalCompra;
+	private Integer nota;
 
-	/* Associo em Foreign Key com a Tabela Produto, como as outras vezes que fiz */
+	/*
+	 * Para associa em ForeignKey uma tabela com outra Tabela Pessoa e Tabela
+	 * AvaliacaoProduto A pessoa que compra avalia
+	 */
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+	private Pessoa pessoa;
+
+	/*
+	 * Para associar em ForeignKey uma tabela com outra Tabela Produto e Tabela
+	 * AvaliacaoProduto - Um Produto várias avaliações
+	 */
 	@ManyToOne
 	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
 	private Produto produto;
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
 	public Long getId() {
 		return id;
@@ -47,20 +60,20 @@ public class NotaItemProduto implements Serializable {
 		this.id = id;
 	}
 
-	public Double getQuantidade() {
-		return quantidade;
+	public Integer getNota() {
+		return nota;
 	}
 
-	public void setQuantidade(Double quantidade) {
-		this.quantidade = quantidade;
+	public void setNota(Integer nota) {
+		this.nota = nota;
 	}
 
-	public NotaFiscalCompra getNotaFiscalCompra() {
-		return notaFiscalCompra;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setNotaFiscalCompra(NotaFiscalCompra notaFiscalCompra) {
-		this.notaFiscalCompra = notaFiscalCompra;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Produto getProduto() {
@@ -87,7 +100,7 @@ public class NotaItemProduto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NotaItemProduto other = (NotaItemProduto) obj;
+		AvaliacaoProduto other = (AvaliacaoProduto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
