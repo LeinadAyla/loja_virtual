@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -29,18 +30,31 @@ public class NotaFiscalCompra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal_compra")
 	private Long id;
 
+
+	@Column(nullable = false)
 	private String numeroNota;
 
+
+	@Column(nullable = false)
 	private String serieNota;
 
+
+	
 	private String descricaoObs;
 
+
+	@Column(nullable = false)
 	private BigDecimal valorTotal;
 
+	
 	private BigDecimal valorDesconto;
+	
 
+	@Column(nullable = false)
 	private BigDecimal valorIcms;
 
+
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataCompra;
 
@@ -49,7 +63,8 @@ public class NotaFiscalCompra implements Serializable {
 	 * NotaFiscalCompra Uma pessoa pode ter várias Notas Fiscais de Compras
 	 */
 	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+	@JoinColumn(name = "pessoa_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
 
 	/*
@@ -58,7 +73,8 @@ public class NotaFiscalCompra implements Serializable {
 	 * a loja comprando de Fornecedores)
 	 */
 	@ManyToOne
-	@JoinColumn(name = "conta_pagar_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
+	@JoinColumn(name = "conta_pagar_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "conta_pagar_fk"))
 	private ContaPagar contaPagar;
 
 	public Long getId() {

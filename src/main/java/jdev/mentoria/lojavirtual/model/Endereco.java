@@ -2,6 +2,7 @@ package jdev.mentoria.lojavirtual.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,8 +19,7 @@ import jdev.mentoria.lojavirtual.model.enums.TipoEndereco;
 
 @Entity
 @Table(name = "endereco")
-@SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco",
-allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco", allocationSize = 1, initialValue = 1)
 public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,29 +28,39 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco")
 	private Long id;
 
+	@Column(nullable = false)
 	private String ruaLogra;
+
+	@Column(nullable = false)
 	private String cep;
+
+	@Column(nullable = false)
 	private String numero; /* ex: Existe rua 5 B */
+
 	private String complemento;
+
+	@Column(nullable = false)
 	private String bairro;
+
+	@Column(nullable = false)
 	private String uf;
+
+	@Column(nullable = false)
 	private String cidade;
 
 	/* Uma pessoa pode ter vários endereços */
 	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "pessoa_id", nullable = false, 
-	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,
-	name = "pessoa_fk"))
+	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
-	
-	
+
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
-	
+
 	public void setTipoEndereco(TipoEndereco tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
-	
+
 	public TipoEndereco getTipoEndereco() {
 		return tipoEndereco;
 	}

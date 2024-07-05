@@ -31,12 +31,14 @@ public class NotaItemProduto implements Serializable {
 
 	/* Associo em Foreign Key com a Tabela Produto, como as outras vezes que fiz */
 	@ManyToOne
-	@JoinColumn(name = "nota_fiscal_compra_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_compra_fk"))
+	@JoinColumn(name = "nota_fiscal_compra_id",
+	nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_fiscal_compra_fk"))
 	private NotaFiscalCompra notaFiscalCompra;
 
 	/* Associo em Foreign Key com a Tabela Produto, como as outras vezes que fiz */
 	@ManyToOne
-	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
+	@JoinColumn(name = "produto_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
 	private Produto produto;
 
 	public Long getId() {

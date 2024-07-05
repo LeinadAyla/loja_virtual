@@ -2,6 +2,7 @@ package jdev.mentoria.lojavirtual.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -24,6 +25,8 @@ public class ItemVendaLoja implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_venda_loja")
 	private Long id;
 
+
+	@Column(nullable = false)
 	private Double quantidade;
 
 	/*
@@ -31,7 +34,8 @@ public class ItemVendaLoja implements Serializable {
 	 * ItemVendaLoja A loja venderá vários produtos
 	 */
 	@ManyToOne
-	@JoinColumn(name = "produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
+	@JoinColumn(name = "produto_id", nullable = false, 
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_fk"))
 	private Produto produto;
 
 	/*
@@ -40,7 +44,8 @@ public class ItemVendaLoja implements Serializable {
 	 * de fornecedores para revender
 	 */
 	@ManyToOne
-	@JoinColumn(name = "venda_compraLojaVirt_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compraLojaVirt_fk"))
+	@JoinColumn(name = "venda_compraLojaVirt_id", nullable = false,
+	foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compraLojaVirt_fk"))
 	private VendaCompraLojaVirtual vendaCompraLojaVirtual;
 
 	public Long getId() {
